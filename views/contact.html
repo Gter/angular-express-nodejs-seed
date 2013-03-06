@@ -1,0 +1,72 @@
+<style type="text/css">
+    .form-actions {padding-left: 0}
+    div {margin-top: 25px}
+</style>
+<div ng-controller="ContactFormCtrl">
+    <form novalidate id="myForm">
+        <div>
+            <p>User Name: </p>
+            <input type="text" ng-model="user.name" name="username" required>
+        </div>  
+        <div>
+            <p>Email Address: </p>
+            <input type="email" ng-model="user.email" name="email" required>
+       </div>
+       <div>
+            <p>Password: </p>
+            <input password-validate type="password" ng-model="user.password" name="password" required>
+       </div>
+        <div>
+            <label class="radio inline">
+              <input type="radio" name="gender" ng-model="user.gender" id="optionsRadios1" value="male" checked>Male
+            </label>
+            <label class="radio inline">
+              <input type="radio" name="gender" ng-model="user.gender" id="optionsRadios2" value="female">Female
+            </label>
+        </div>
+       <div>
+          <p>Size (integer 0 - 10):</p>
+          <input type="number" ng-model="user.size" name="size" min="0" max="10" integer>
+          <span ng-show="form.size.$error.integer">This is not valid integer!</span>
+          <span ng-show="form.size.$error.min || form.size.$error.max">The value must be in range 0 to 10!</span>
+        </div>
+        <div>
+          <p>Length (float):</p>
+          <input type="text" ng-model="user.length" name="length" smart-float>
+          {{length}}<br />
+          <span ng-show="form.length.$error.float">
+            This is not a valid float number!</span>
+        </div>
+        <div>
+            <p>Select Dropdown Choice:</p>
+            <select name="choice" ng-model="user.choice" id="choice">
+              <option value="Choice 1">Choice 1</option>
+              <option value="Choice 2">Choice 2</option>
+              <option value="Choice 3">Choice 3</option>
+            </select>
+        </div>
+        
+        <div class="checkboxes" ng-repeat="device in devices">
+            <label class="checkbox" for="{{device}}">I have {{device}} device.<input ng-model="user.chosen[$index]" type="checkbox" id="{{device}}"></label>
+        </div>
+        Chosen: {{chosen}}
+        <!--
+        <div>
+            <label for="textarea">Comments:</label>
+            <textarea ng-model="user.comments" cols="40" rows="3" name="textarea"></textarea>
+        </div>
+        -->
+        <div class="form-actions">
+            <button ng-click="resetForm()" ng-disabled="isUnchanged(user)" class="btn">RESET</button>
+            <button ng-click="submitForm(user)" ng-disabled="form.$invalid || isUnchanged(user)" class="btn btn-primary">SAVE</button>
+        </div>
+    </form>
+    <pre>form = {{user | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+</div>
+<div ng-controller="CallUsCtrl">
+  <phone number="{{ctrlNumber}}" network="network" make-call="leaveVoicemail(number, message)"></phone>
+  <phone number="732-867-2443" network="network" make-call="leaveVoicemail(number, message)"></phone>
+  <phone number="911" network="network" make-call="leaveVoicemail(number, message)"></phone>
+</div>
+

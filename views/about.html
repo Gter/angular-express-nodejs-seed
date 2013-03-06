@@ -1,0 +1,9 @@
+<div>
+	<div drink flavor="flavor property local to the directive"></div><br>
+	<!-- Input updates the binding {{flavor}} in the directive -->
+	<input type="text" ng-model="ctrlFlavor"><br>
+	<!-- Send in a binding {{ctrlFlavor}} 
+		defined in the parent scope to the directive -->
+	<div drink flavor="{{ctrlFlavor}}"></div><br>
+	<div drink flavor="Isolated scope is not changing parent scope"></div>
+</div>
